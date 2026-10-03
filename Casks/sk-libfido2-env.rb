@@ -12,6 +12,7 @@ cask "sk-libfido2-env" do
     generated_script 'uninstall-sk-libfido2-env.sh', content: <<~'SH'
         #!/bin/bash
         set -u
+        /bin/launchctl unsetenv SSH_SK_PROVIDER 2>/dev/null || true
         zshrc="$HOME/.zshrc"
         [ -f "$zshrc" ] || exit 0
         sed -i '' '/export SSH_SK_PROVIDER=/d' "$zshrc"
