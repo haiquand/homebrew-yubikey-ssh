@@ -1,6 +1,6 @@
 cask "sk-libfido2-env" do
-    version "10.2p1"
-    sha256 "4e2343d853f5bf63bf170ddff3ab8e38e0298931aaec2a4537217289157ed344"
+    version "10.2p2"
+    sha256 "6c237ccfb84c79746743e0d7f6c1b03fb2fa68fe712e36c292d6248b3012aa5d"
 
     url "https://raw.githubusercontent.com/haiquand/homebrew-yubikey-ssh/refs/heads/main/script/install-sk-libfido2-env.sh"
     name "sk-libfido2-env"
