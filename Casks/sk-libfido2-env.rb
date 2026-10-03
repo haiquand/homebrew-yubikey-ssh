@@ -9,12 +9,21 @@ cask "sk-libfido2-env" do
 
     depends_on formula: "sk-libfido2"
 
+    generated_script 'uninstall-sk-libfido2-env.sh', content: <<~'SH'
+        #!/bin/bash
+        set -u
+        zshrc="$HOME/.zshrc"
+        [ -f "$zshrc" ] || exit 0
+        sed -i '' '/export SSH_SK_PROVIDER=/d' "$zshrc"
+    SH
+
     installer script: {
         executable: "install-sk-libfido2-env.sh",
         sudo: false,
     }
 
-    uninstall launchctl: "com.openssh.sk-libfido2-env"
+    uninstall launchctl: "com.openssh.sk-libfido2-env",
+              script: { executable: "uninstall-sk-libfido2-env.sh", sudo: false }
 
     caveats <<~EOS
         We have updated the SSH_SK_PROVIDER environment variable in your ~/.zshrc file.
