@@ -8,9 +8,13 @@ cask "sk-libfido2-env" do
     homepage "https://github.com/haiquand/homebrew-yubikey-ssh"
 
     depends_on formula: "sk-libfido2"
+
+    installer script: {
+        executable: "install-sk-libfido2-env.sh",
+        sudo: false,
+    }
     
     postflight_steps do
-        run "/bin/zsh", args: ["{{staged_path}}/install-sk-libfido2-env.sh"], sudo: false
         run "/bin/zsh", args: ["-c", "/bin/launchctl unload ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist &>/dev/null || true"], sudo: false
         run "/bin/zsh", args: ["-c", "/bin/launchctl load ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist || true"], sudo: false
         run "/bin/zsh", args: ["-c", "grep -q \"export SSH_SK_PROVIDER=\" ~/.zshrc && sed -i '' 's|export SSH_SK_PROVIDER=.*|export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"|' ~/.zshrc || echo 'export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"' >> ~/.zshrc"], sudo: false
