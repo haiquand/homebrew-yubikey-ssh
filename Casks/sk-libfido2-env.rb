@@ -11,15 +11,15 @@ cask "sk-libfido2-env" do
     
     postflight_steps do
         run "/bin/zsh", args: ["{{staged_path}}/install-sk-libfido2-env.sh"], sudo: false
-        system_command "/bin/zsh", args: ["-c", "/bin/launchctl unload ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist &>/dev/null || true"], sudo: false
-        system_command "/bin/zsh", args: ["-c", "/bin/launchctl load ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist || true"], sudo: false
-        system_command "/bin/zsh", args: ["-c", "grep -q \"export SSH_SK_PROVIDER=\" ~/.zshrc && sed -i '' 's|export SSH_SK_PROVIDER=.*|export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"|' ~/.zshrc || echo 'export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"' >> ~/.zshrc"], sudo: false
+        run "/bin/zsh", args: ["-c", "/bin/launchctl unload ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist &>/dev/null || true"], sudo: false
+        run "/bin/zsh", args: ["-c", "/bin/launchctl load ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist || true"], sudo: false
+        run "/bin/zsh", args: ["-c", "grep -q \"export SSH_SK_PROVIDER=\" ~/.zshrc && sed -i '' 's|export SSH_SK_PROVIDER=.*|export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"|' ~/.zshrc || echo 'export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"' >> ~/.zshrc"], sudo: false
     end
 
     uninstall_postflight_steps do
-        system_command "/bin/zsh", args: ["-c", "/bin/launchctl unload ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist &>/dev/null || true"], sudo: false
-        system_command "/bin/zsh", args: ["-c", "rm ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist || true"], sudo: false
-        system_command "/bin/zsh", args: ["-c", "sed -i '' '/export SSH_SK_PROVIDER=/d' ~/.zshrc"], sudo: false
+        run "/bin/zsh", args: ["-c", "/bin/launchctl unload ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist &>/dev/null || true"], sudo: false
+        run "/bin/zsh", args: ["-c", "rm ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist || true"], sudo: false
+        run "/bin/zsh", args: ["-c", "sed -i '' '/export SSH_SK_PROVIDER=/d' ~/.zshrc"], sudo: false
     end
 
     caveats <<~EOS
