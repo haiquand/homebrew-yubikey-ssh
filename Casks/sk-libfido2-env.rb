@@ -16,10 +16,6 @@ cask "sk-libfido2-env" do
 
     uninstall launchctl: "com.openssh.sk-libfido2-env",
               delete: "~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist"
-    
-    # uninstall_postflight_steps do
-    #     run "/bin/zsh", args: ["-c", "sed -i '' '/export SSH_SK_PROVIDER=/d' ~/.zshrc"], sudo: false
-    # end
 
     caveats <<~EOS
         We have updated the SSH_SK_PROVIDER environment variable in your ~/.zshrc file.
