@@ -9,7 +9,7 @@ cask "sk-libfido2-env" do
 
     depends_on formula: "sk-libfido2"
 
-    postflight do
+    postflight_steps do
         system_command "/bin/zsh", args: ["#{staged_path}/install-sk-libfido2-env.sh"], sudo: false
         system_command "/bin/zsh", args: ["-c", "/bin/launchctl unload ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist &>/dev/null || true"], sudo: false
         system_command "/bin/zsh", args: ["-c", "/bin/launchctl load ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist || true"], sudo: false
@@ -17,7 +17,7 @@ cask "sk-libfido2-env" do
 "], sudo: false
     end
 
-    uninstall_postflight do
+    uninstall_postflight_steps do
         system_command "/bin/zsh", args: ["-c", "/bin/launchctl unload ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist &>/dev/null || true"], sudo: false
         system_command "/bin/zsh", args: ["-c", "rm ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist || true"], sudo: false
         system_command "/bin/zsh", args: ["-c", "sed -i '' '/export SSH_SK_PROVIDER=/d' ~/.zshrc"], sudo: false
