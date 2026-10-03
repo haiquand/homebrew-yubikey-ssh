@@ -9,12 +9,11 @@ cask "sk-libfido2-env" do
 
     depends_on formula: "sk-libfido2"
 
-    postflight_steps do
-        system_command "/bin/zsh", args: ["#{staged_path}/install-sk-libfido2-env.sh"], sudo: false
+    postflight_steps do |c|
+        system_command "/bin/zsh", args: ["#{c.staged_path}/install-sk-libfido2-env.sh"], sudo: false
         system_command "/bin/zsh", args: ["-c", "/bin/launchctl unload ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist &>/dev/null || true"], sudo: false
         system_command "/bin/zsh", args: ["-c", "/bin/launchctl load ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist || true"], sudo: false
-        system_command "/bin/zsh", args: ["-c", "grep -q \"export SSH_SK_PROVIDER=\" ~/.zshrc && sed -i '' 's|export SSH_SK_PROVIDER=.*|export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"|' ~/.zshrc || echo 'export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"' >> ~/.zshrc
-"], sudo: false
+        system_command "/bin/zsh", args: ["-c", "grep -q \"export SSH_SK_PROVIDER=\" ~/.zshrc && sed -i '' 's|export SSH_SK_PROVIDER=.*|export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"|' ~/.zshrc || echo 'export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"' >> ~/.zshrc"], sudo: false
     end
 
     uninstall_postflight_steps do
