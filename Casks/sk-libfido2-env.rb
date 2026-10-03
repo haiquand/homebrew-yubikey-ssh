@@ -13,9 +13,10 @@ cask "sk-libfido2-env" do
         executable: "install-sk-libfido2-env.sh",
         sudo: false,
     }
+
+    uninstall launchctl: "com.openssh.sk-libfido2-env"
     
     uninstall_postflight_steps do
-        run "/bin/zsh", args: ["-c", "/bin/launchctl unload ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist &>/dev/null || true"], sudo: false
         run "/bin/zsh", args: ["-c", "rm ~/Library/LaunchAgents/com.openssh.sk-libfido2-env.plist || true"], sudo: false
         run "/bin/zsh", args: ["-c", "sed -i '' '/export SSH_SK_PROVIDER=/d' ~/.zshrc"], sudo: false
     end
