@@ -44,4 +44,4 @@ EOF
 /bin/launchctl load "$plist_target_file" || true
 
 # Upload ~/.zshrc
-grep -q \"export SSH_SK_PROVIDER=\" ~/.zshrc && sed -i '' 's|export SSH_SK_PROVIDER=.*|export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"|' ~/.zshrc || echo 'export SSH_SK_PROVIDER=\"$(brew --prefix)/lib/sk-libfido2.dylib\"' >> ~/.zshrc
+grep -q "export SSH_SK_PROVIDER=" ~/.zshrc && sed -i '' 's|export SSH_SK_PROVIDER=.*|export SSH_SK_PROVIDER="$(brew --prefix)/lib/sk-libfido2.dylib"|' ~/.zshrc || echo 'export SSH_SK_PROVIDER="$(brew --prefix)/lib/sk-libfido2.dylib"' >> ~/.zshrc
