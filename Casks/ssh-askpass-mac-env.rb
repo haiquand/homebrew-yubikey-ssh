@@ -1,6 +1,6 @@
 cask "ssh-askpass-mac-env" do
-    version "0.1.0"
-    sha256 "0f16be7c38894c013988de6a03e5cdc8bb674f046ad589f8cfd411d32bb11e6d"
+    version "0.1.1"
+    sha256 "ac56a7a24ce5d7737b0b68f8023d40ece9ccab8c584c3bfb93eea8f6cc1b82f5"
 
     url "https://raw.githubusercontent.com/haiquand/homebrew-yubikey-ssh/refs/heads/main/script/install-ssh-askpass-mac-env.sh"
     name "ssh-askpass-mac-env"

@@ -100,4 +100,12 @@ When uninstalled, the cask automatically performs a cleanup process:
 
 - Removes the leftover `~/.ssh/agent.sock` socket file.
 
+The `ssh-askpass-mac` formula itself is left installed, since it is a dependency rather than something the cask owns. Remove it explicitly if you no longer need it:
+
+```zsh
+brew uninstall ssh-askpass-mac
+```
+
+Note that `brew autoremove` will not do this for you: `ssh-askpass-mac` is built from source, and Homebrew's autoremove deliberately keeps formulae that were not poured from a bottle.
+
 This ensures no residual configuration remains after the cask is removed.

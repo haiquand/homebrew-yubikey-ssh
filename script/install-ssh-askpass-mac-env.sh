@@ -29,6 +29,16 @@ fi
 /bin/launchctl bootout "gui/$(id -u)/$plist_name" >/dev/null 2>&1 || true
 /bin/launchctl unload "$plist_target_file" >/dev/null 2>&1 || true
 
+# Wait for a previous agent to exit. It unlinks its own socket on a clean exit, but a
+# SIGKILLed agent leaves the socket behind, and ssh-agent refuses to bind over it
+# ("Address already in use"). That would make the LaunchAgent fail silently while
+# SSH_AUTH_SOCK keeps pointing at a dead socket.
+for _ in {1..10}; do
+    pgrep -f "ssh-agent -a $ssh_auth_sock" >/dev/null 2>&1 || break
+    sleep 0.2
+done
+rm -f "$ssh_auth_sock"
+
 cat <<EOF | tee $plist_target_file
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
